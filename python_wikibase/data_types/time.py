@@ -46,7 +46,7 @@ class Time(DataType):
             "timezone": 0,
             "before": 0,
             "after": 0,
-            "calendarmodel": "http:\/\/www.wikidata.org\/entity\/Q1985727"
+            "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
         }
 
         if isinstance(self.value, datetime.date):
