@@ -50,7 +50,7 @@ def unmarshal_data_value(py_wb, main_snak):
     elif data_type == "tabular-data":
         raise NotImplementedError  # TODO
     elif data_type == "time":
-        raise NotImplementedError  # TODO
+        return py_wb.Time().unmarshal(data_value)
     elif data_type == "url":
         raise NotImplementedError  # TODO
     elif data_type == "wikibase-form":

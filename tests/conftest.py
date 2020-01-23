@@ -12,6 +12,7 @@ from tests.constants import (
     PROP_ITEM_LABEL,
     PROP_LABEL,
     PROP_QUANTITY_LABEL,
+    PROP_TIME_LABEL,
     STRING_VALUE,
 )
 
@@ -110,7 +111,15 @@ def prop_quantity(py_wb):
     prop.delete()
 
 
+@pytest.fixture(scope="function")
+def prop_time(py_wb):
+    prop = py_wb.Property().create(PROP_TIME_LABEL, data_type="Time")
+    assert prop.label.get(LANGUAGE) == PROP_TIME_LABEL
+    yield prop
+    prop.delete()
+
 # Values
+
 
 @pytest.fixture(scope="function")
 def string_value(py_wb):

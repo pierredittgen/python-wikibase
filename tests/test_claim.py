@@ -78,3 +78,13 @@ class TestClaim:
         assert claim.value.amount == amount
         assert float(claim.value) == amount
         assert claim.value.marshal() == quantity.marshal()
+
+    # Time
+
+    def test_time(self, py_wb, item, prop_time):
+        date = datetime.date.fromisoformart("2012-05-12")
+        time_ = py_wb.Time().create(date_str)
+        claim = item.claims.add(prop_time, time_)
+        assert claim.property.data_type == "Time"
+        assert claim.value.date == date
+        assert claim.value.marshal() == time_.marshal()

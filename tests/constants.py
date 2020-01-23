@@ -11,5 +11,6 @@ PROP_EXTERNAL_ID_LABEL = "ExternalId property"
 PROP_ITEM_LABEL = "Wikibase item property"
 PROP_GEO_LOCATION_LABEL = "GeoLocation property"
 PROP_QUANTITY_LABEL = "Quantity property"
+PROP_TIME_LABEL = "Time property"
 
 STRING_VALUE = "String value"
