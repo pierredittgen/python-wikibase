@@ -36,8 +36,7 @@ class Time(DataType):
             self.value = datetime.date.fromisoformat(time[:-9])
         elif precision == 14:
             val = datetime.datetime.fromisoformat(time)
-            val.replace(tzinfo=datetime.timezone(offset=datetime.timedelta(minutes=tz)))
-            self.value = val
+            self.value = val.replace(tzinfo=datetime.timezone(offset=datetime.timedelta(minutes=tz)))
         return self
 
     def marshal(self):
