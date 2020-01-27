@@ -3,11 +3,13 @@ import datetime
 
 from python_wikibase.data_types.data_type import DataType
 
+GREGORIAN_CALENDAR_WIKIDATA_URL = "http://www.wikidata.org/entity/Q1985727"
+
 
 class DataTypeException(BaseException):
     pass
 
-# Largely inspired from  https://github.com/dahlia/wikidata/blob/master/wikidata/datavalue.py
+# Largely inspired by https://github.com/dahlia/wikidata/blob/master/wikidata/datavalue.py
 
 
 class Time(DataType):
@@ -21,6 +23,10 @@ class Time(DataType):
     def unmarshal(self, data_value):
         value = data_value["value"]
 
+        calendar_model = value['calendarmodel']
+        if calendar_model != GREGORIAN_CALENDAR_WIKIDATA_URL:
+            raise DataTypeException(f"Unsupported calendar model: [{calendar_model}]")
+
         # See https://www.mediawiki.org/wiki/Wikibase/DataModel/JSON#time
         # for property to extract from data_value
 
@@ -31,6 +37,9 @@ class Time(DataType):
         tz = value['timezone']
         # Don't take in account 'before' and 'after' property
         precision = value['precision']
+
+        if precision not in (11, 14):
+            raise DataTypeException(f"Not supported precision: [{precistion}]")
 
         if precision == 11:
             self.value = datetime.date.fromisoformat(time[:-9])
@@ -45,7 +54,7 @@ class Time(DataType):
             "timezone": 0,
             "before": 0,
             "after": 0,
-            "calendarmodel": "http://www.wikidata.org/entity/Q1985727"
+            "calendarmodel": GREGORIAN_CALENDAR_WIKIDATA_URL
         }
 
         if isinstance(self.value, datetime.date):
